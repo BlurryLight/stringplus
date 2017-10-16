@@ -164,4 +164,14 @@ std::vector<std::__cxx11::string> split(const std::__cxx11::string &str, const s
     return result;
 }
 
+
+std::string join(const std::string& str,const std::vector<std::string>& seq)
+{
+    if(seq.size() == 0) return "";
+    if(seq.size() == 1) return seq[0];
+    std::string result(seq[0]);
+    for(auto it = seq.cbegin() + 1;it!=seq.cend();++it)
+        result += str + *it;
+    return result;
+}
 }

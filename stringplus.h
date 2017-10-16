@@ -18,6 +18,7 @@ namespace stringplus
     std::string rstrip(const std::string& str,const std::string& chars = "");
 
     std::vector<std::string> split(const std::string& str,const std::string& sep ,int maxsplit);
+    std::string join(const std::string& str,const std::vector<std::string>& seq);
 
 }
 
