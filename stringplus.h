@@ -23,6 +23,8 @@ namespace stringplus
     std::string join(const std::string& str,const std::vector<std::string>& seq);
     std::string title(const std::string& str);
     std::string slice(const std::string& str,int start = 0,int end=MAX32BITINT);
+	
+	int find(const std::string& str, const std::string& sub, int start = 0, int end=MAX32BITINT);
 
 }
 

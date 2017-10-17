@@ -61,7 +61,7 @@ bool isalnum(const std::string& str)
     }
     return true;
 }
-bool isalpha(const std::__cxx11::string &str)
+bool isalpha(const std::string &str)
 {
     strtype len = str.size();
     if(len == 0) return false;
@@ -73,7 +73,7 @@ bool isalpha(const std::__cxx11::string &str)
     return true;
 }
 
-bool isdigit(const std::__cxx11::string &str)
+bool isdigit(const std::string &str)
 {
 
     strtype len = str.size();
@@ -86,7 +86,7 @@ bool isdigit(const std::__cxx11::string &str)
     return true;
 }
 
-//bool istitle(const std::__cxx11::string &str)
+//bool istitle(const std::string &str)
 //{
 
 //    strtype len = str.size();
@@ -98,7 +98,7 @@ bool isdigit(const std::__cxx11::string &str)
 //    }
 //    return true;
 //}
-bool islower(const std::__cxx11::string &str)
+bool islower(const std::string &str)
 {
 
     strtype len = str.size();
@@ -111,7 +111,7 @@ bool islower(const std::__cxx11::string &str)
     return true;
 }
 
-std::__cxx11::string trim(const std::__cxx11::string &str)
+std::string trim(const std::string &str)
 {
     std::string s(str);
     s.erase(0,s.find_first_not_of(" "));
@@ -120,21 +120,21 @@ std::__cxx11::string trim(const std::__cxx11::string &str)
 
 }
 
-std::__cxx11::string strip(const std::__cxx11::string &str, const std::__cxx11::string &chars)
+std::string strip(const std::string &str, const std::string &chars)
 {
     return strip_do(str,bothstrip,chars);
 }
 
-std::__cxx11::string lstrip(const std::__cxx11::string &str, const std::__cxx11::string &chars)
+std::string lstrip(const std::string &str, const std::string &chars)
 {
     return strip_do(str,leftstrip,chars);
 }
-std::__cxx11::string rstrip(const std::__cxx11::string &str, const std::__cxx11::string &chars)
+std::string rstrip(const std::string &str, const std::string &chars)
 {
     return strip_do(str,leftstrip,chars);
 }
 
-std::vector<std::__cxx11::string> split(const std::__cxx11::string &str, const std::__cxx11::string &sep, int maxsplit=-1)
+std::vector<std::string> split(const std::string &str, const std::string &sep, int maxsplit=-1)
 {
     if(maxsplit<0) maxsplit=MAX32BITINT;
 
@@ -175,7 +175,7 @@ std::string join(const std::string& str,const std::vector<std::string>& seq)
     return result;
 }
 
-bool istitle(const std::__cxx11::string &str)
+bool istitle(const std::string &str)
 {
     strtype len = str.size();
     if(len ==0) return false;
@@ -210,6 +210,60 @@ bool res = false , previouscased = false;
     }
     return res;
 
+}
+std::string title(const std::string& str)
+{
+	std::string s(str);
+	auto s_it = s.begin();
+	strtype len = str.size();
+	if (len == 0) return "";
+	bool flag = false,previouscased = false;
+	for (auto it = str.cbegin(); it != str.cend(); ++it)
+	{
+
+		if (::islower(*it))
+		{
+			if (previouscased == false)
+			{
+				*s_it = (char) ::toupper(*it);
+			}
+			previouscased = true;
+		}
+		else if (::isupper(*it))
+		{
+			if (previouscased == true)
+			{
+				*s_it == (char) ::tolower(*it);
+			}
+			previouscased = true;
+		}
+		else
+		{
+			previouscased = false;
+		}
+		++s_it;
+		
+	}
+	return s;
+
+}
+
+std::string slice(const std::string & str, int start, int end)
+{
+	if (end > start) return "";
+	return str.substr(start, end - start);
+}
+
+int find(const std::string& str, const std::string& sub, int start, int end)
+{
+	if (start > end) return -1;
+	strtype pos = str.find(sub, start);
+	//if there is no finding or the pos plus the sub size beyond the limit of [start end]
+	//return -1
+	if (pos == std::string::npos || pos + sub.size() > (strtype)end)
+	{
+		return -1;
+	}
 }
 
 }
