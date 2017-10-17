@@ -174,4 +174,42 @@ std::string join(const std::string& str,const std::vector<std::string>& seq)
         result += str + *it;
     return result;
 }
+
+bool istitle(const std::__cxx11::string &str)
+{
+    strtype len = str.size();
+    if(len ==0) return false;
+    if(len ==1 )return ::isupper(str[0]);
+
+bool res = false , previouscased = false;
+    for(auto it = str.cbegin();it!=str.cend();++it)
+    {
+        if(::isupper(*it))
+        {
+            if(previouscased == true)
+            {
+                return false;
+            }
+            res = true;
+            previouscased = true;
+        }
+        else if(::islower(*it))
+        {
+            if(previouscased == false)
+            {
+                return false;
+            }
+            previouscased = true;
+            res = true;
+        }
+        else
+        {
+            previouscased = false;
+        }
+
+    }
+    return res;
+
+}
+
 }
