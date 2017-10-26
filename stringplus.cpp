@@ -4,6 +4,20 @@ namespace stringplus {
 typedef std::string::size_type strtype;
 #define MAX32BITINT 2147483647
 ///basis functions set in a anonymous namespace
+
+#define ADJUST(start,endl,len) \
+if(end>len) \
+{ \
+    end = len;\
+}\
+else if(end<0) \
+{ \
+  end =0;\
+}\
+   if(start < 0)\
+{start = 0;}
+
+
 namespace   {
 enum
 {leftstrip = 0,
@@ -250,20 +264,40 @@ std::string title(const std::string& str)
 
 std::string slice(const std::string & str, int start, int end)
 {
-	if (end > start) return "";
+    ADJUST(start,end,str.size());
+    if (start > end) return "";
 	return str.substr(start, end - start);
 }
 
 int find(const std::string& str, const std::string& sub, int start, int end)
 {
-	if (start > end) return -1;
+    ADJUST(start,end,str.size());
+    if (start > end) return -1;
 	strtype pos = str.find(sub, start);
 	//if there is no finding or the pos plus the sub size beyond the limit of [start end]
 	//return -1
 	if (pos == std::string::npos || pos + sub.size() > (strtype)end)
 	{
 		return -1;
-	}
+    }
+    return (int) pos;
+}
+void partition(const std::__cxx11::string &str, const std::__cxx11::string &sep, std::vector<std::__cxx11::string> &result)
+{
+    result.resize(3);
+    int pos = find(str,sep);
+    if(pos==-1)
+    {
+        result[0]=str;
+        result[1]="";
+        result[2]="";
+    }
+    else
+    {
+        result[0] = str.substr(0,pos);
+        result[1] = sep;
+        result[2] = str.substr(pos+sep.size(),str.size());
+    }
 }
 
 }

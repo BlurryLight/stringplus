@@ -25,6 +25,7 @@ namespace stringplus
     std::string slice(const std::string& str,int start = 0,int end=MAX32BITINT);
 	
 	int find(const std::string& str, const std::string& sub, int start = 0, int end=MAX32BITINT);
+    void partition(const std::string& str,const std::string & sep,std::vector<std::string>& result);
 
 }
 
